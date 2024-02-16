@@ -1580,7 +1580,6 @@ GameObject:
   m_Component:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
-  - component: {fileID: 963194226}
   - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
@@ -1589,14 +1588,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &963194226
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
 --- !u!20 &963194227
 Camera:
   m_ObjectHideFlags: 0
@@ -1663,27 +1654,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 47.43, y: -47.268, z: -21.197}
---- !u!95 &963194229
-Animator:
-  serializedVersion: 5
+--- !u!114 &963194229
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7c78c43a6bc8045bba75de56a915362a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecdef59413c354f42a95c2bba2be76fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1538783692}
+  offset: {x: 2, y: 1, z: -2}
+  smoothSpeed: 0.125
 --- !u!1001 &1029609416
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1872,9 +1857,6 @@ GameObject:
   - component: {fileID: 1104740859}
   - component: {fileID: 1104740858}
   - component: {fileID: 1104740857}
-  - component: {fileID: 1104740856}
-  - component: {fileID: 1104740854}
-  - component: {fileID: 1104740860}
   m_Layer: 0
   m_Name: pointeur
   m_TagString: Untagged
@@ -1882,54 +1864,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!54 &1104740854
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1104740853}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!135 &1104740856
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1104740853}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1104740857
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1995,19 +1929,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1104740860
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1104740853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a01a89c356544a4a542f3db3ab29f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  balle: {fileID: 1538783693}
 --- !u!1001 &1133916519
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2501,8 +2422,8 @@ GameObject:
   - component: {fileID: 1538783691}
   - component: {fileID: 1538783690}
   - component: {fileID: 1538783689}
-  - component: {fileID: 1538783694}
   - component: {fileID: 1538783693}
+  - component: {fileID: 1538783694}
   m_Layer: 0
   m_Name: balle
   m_TagString: Untagged
@@ -2635,9 +2556,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bef5f6a1206884ecdbc466011e23bb90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointerController: {fileID: 1104740860}
-  pointeur: {fileID: 1104740854}
-  launchPower: 10
+  pointeur: {fileID: 1104740853}
 --- !u!1 &1547017132
 GameObject:
   m_ObjectHideFlags: 0
@@ -3267,7 +3186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textElement: {fileID: 1718954687}
-  fadeDuration: 5
+  dure: 3
 --- !u!1001 &1784315568
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -6,13 +6,14 @@ using UnityEngine;
 public class animationTitre : MonoBehaviour
 {
 
-    public TextMeshProUGUI textElement; // Assign this in the inspector
-    public float fadeDuration = 3.0f;
+    public TextMeshProUGUI textElement; 
+    public float dure = 3.0f;
 
     void Start()
     {
         textElement.color = new Color(textElement.color.r, textElement.color.g, textElement.color.b, 0);
-        StartCoroutine(FadeTextToFullAlpha(fadeDuration, textElement));
+        StartCoroutine(FadeTextToFullAlpha(dure, textElement));
+        
     }
 
     public IEnumerator FadeTextToFullAlpha(float t, TextMeshProUGUI i)
@@ -22,6 +23,8 @@ public class animationTitre : MonoBehaviour
             i.color = new Color(i.color.r, i.color.g, i.color.b, i.color.a + (Time.deltaTime / t));
             yield return null;
         }
+        textElement.color = new Color(textElement.color.r, textElement.color.g, textElement.color.b, 0);
+        Camera.main.GetComponent<CameraJeu>().EnableCameraFollow(true);
     }
 
     void Update()
@@ -30,8 +33,11 @@ public class animationTitre : MonoBehaviour
         if (Input.anyKeyDown || Input.GetMouseButtonDown(0))
         {
             StopAllCoroutines(); // Stop the fading coroutine
-            textElement.color = new Color(textElement.color.r, textElement.color.g, textElement.color.b, 1); // Instantly set alpha to 1
-            // Optionally, trigger any next steps or scene changes here
+            //textElement.color = new Color(textElement.color.r, textElement.color.g, textElement.color.b, 1); // Instantly set alpha to 1
+            textElement.color = new Color(textElement.color.r, textElement.color.g, textElement.color.b, 0);
+            Camera.main.GetComponent<CameraJeu>().EnableCameraFollow(true);                                                                                                 // Find the camera follow script and enable it
+
         }
+        
     }
 }

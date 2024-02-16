@@ -1,38 +1,66 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class MouvementBalle : MonoBehaviour
+public class ControleBalle : MonoBehaviour
 {
-    public ScriptPointeur pointerController; // Assign your PointerController3D script here
-    public Rigidbody pointeur; // Assign your pointer object here
-    public float launchPower = 10.0f;
+    public GameObject pointeur; // Assignez la balle indicateur dans l'inspecteur
+    private float puissanceTir = 10f; // Ajustez selon le besoin
+    private float vitesseRotation = 10f; // Ajustez selon le besoin
     private Rigidbody rb;
+    private float distancePointeur = 2f;
+    private float seuilVitesse = 5f;
+    
+   
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        pointeur.SetActive(false);
+        AjusterPositionIndicateur();
+        
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) // When the space bar is pressed
+        // Active le pointeur seulement si la balle est immobile
+        if (rb.velocity.magnitude < seuilVitesse)
         {
-            pointerController.SetVisibility(true); // Make the pointer visible
+            pointeur.SetActive(true);
+            if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow))
+            {
+                
+                // Rotation de l'indicateur pour viser
+                float rotation = Input.GetKey(KeyCode.RightArrow) ? vitesseRotation : -vitesseRotation;
+                pointeur.transform.RotateAround(transform.position, Vector3.up, rotation * Time.deltaTime);
+                AjusterPositionIndicateur();
+            }
+
+        }
+        else
+        {
+            pointeur.SetActive(false); // Cache le pointeur lorsque la balle est en mouvement
         }
 
-        if (Input.GetKeyUp(KeyCode.Space)) // When the space bar is released
+        // Frapper la balle
+        if (Input.GetKeyDown(KeyCode.Space) && rb.velocity.magnitude < seuilVitesse) // Assure que la balle est immobile avant de tirer
         {
-            LaunchTowardsPointer();
-            pointerController.SetVisibility(false); // Hide the pointer after launching
+            Vector3 direction = pointeur.transform.position - transform.position;
+            rb.AddForce(direction.normalized * puissanceTir, ForceMode.VelocityChange);
         }
     }
 
-    void LaunchTowardsPointer()
+    void FixedUpdate()
     {
-        Vector3 direction = pointeur.position - transform.position;
-        direction.Normalize();
-        rb.velocity = direction * launchPower;
+        // Vérifiez si la vitesse de la balle est inférieure au seuil
+        if (rb.velocity.magnitude < seuilVitesse && rb.velocity.magnitude > 0)
+        {
+            rb.velocity = Vector3.zero; // Arrête complètement la balle
+            rb.angularVelocity = Vector3.zero; // Arrête également toute rotation de la balle
+        }
     }
-
+    void AjusterPositionIndicateur()
+    {
+        // Ajuste la position de l'indicateur pour qu'il soit toujours à une distance fixe devant la balle
+        Vector3 direction = (pointeur.transform.position - transform.position).normalized;
+        pointeur.transform.position = transform.position + direction * distancePointeur;
+    }
 }
