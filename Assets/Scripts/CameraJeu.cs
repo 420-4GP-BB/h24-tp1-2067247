@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class CameraJeu : MonoBehaviour
 {
-    public Transform target; // The ball's transform
-    public Vector3 offset; // Offset from the ball to the camera
-    public float smoothSpeed = 0.125f; // How smoothly the camera catches up to its target position
+    public GameObject pointeur;
+    public Transform target; // la position de la balle
+    public Vector3 offset; // distance entre camera et balle
+    private float smoothSpeed = 0.125f; // How smoothly the camera catches up to its target position
 
     void Start()
-{
-    EnableCameraFollow(false); // Disable camera follow at the start
-}
+    {
+        ActiverScriptCamera(false); // Disable camera follow at the start
+        pointeur.SetActive(false);
+    }
 
     void LateUpdate()
     {
@@ -20,10 +22,18 @@ public class CameraJeu : MonoBehaviour
         transform.position = smoothedPosition;
 
         // Optionally, make the camera always look at the ball
-        transform.LookAt(target);
+         transform.LookAt(target);
+        //transform.LookAt(pointeur.transform.position);
     }
-    public void EnableCameraFollow(bool enable)
+    public void ActiverScriptCamera(bool enable)
     {
         this.enabled = enable; // Enable or disable this camera follow script
+        pointeur.SetActive(false);
+    }
+
+    public void activerOveriew (){
+        Vector3 nvPosition = new Vector3(-20.3f, 14.9f, -1.2f);
+        Vector3 smoothedPosition = Vector3.Lerp(transform.position, nvPosition, 1f);
+        transform.position = smoothedPosition;
     }
 }

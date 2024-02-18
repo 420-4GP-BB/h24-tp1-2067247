@@ -24,7 +24,7 @@ public class animationTitre : MonoBehaviour
             yield return null;
         }
         textElement.color = new Color(textElement.color.r, textElement.color.g, textElement.color.b, 0);
-        Camera.main.GetComponent<CameraJeu>().EnableCameraFollow(true);
+        Camera.main.GetComponent<CameraJeu>().ActiverScriptCamera(true);
     }
 
     void Update()
@@ -33,9 +33,8 @@ public class animationTitre : MonoBehaviour
         if (Input.anyKeyDown || Input.GetMouseButtonDown(0))
         {
             StopAllCoroutines(); // Stop the fading coroutine
-            //textElement.color = new Color(textElement.color.r, textElement.color.g, textElement.color.b, 1); // Instantly set alpha to 1
             textElement.color = new Color(textElement.color.r, textElement.color.g, textElement.color.b, 0);
-            Camera.main.GetComponent<CameraJeu>().EnableCameraFollow(true);                                                                                                 // Find the camera follow script and enable it
+            Camera.main.GetComponent<CameraJeu>().ActiverScriptCamera(true);                                                                                                 // Find the camera follow script and enable it
 
         }
         

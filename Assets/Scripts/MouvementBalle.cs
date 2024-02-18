@@ -7,7 +7,7 @@ public class ControleBalle : MonoBehaviour
     private float vitesseRotation = 10f; // Ajustez selon le besoin
     private Rigidbody rb;
     private float distancePointeur = 2f;
-    private float seuilVitesse = 5f;
+    private float seuilVitesse = 2f;
     
    
 
@@ -15,7 +15,7 @@ public class ControleBalle : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         pointeur.SetActive(false);
-        AjusterPositionIndicateur();
+        AjusterPositionPointeur();
         
     }
 
@@ -31,18 +31,20 @@ public class ControleBalle : MonoBehaviour
                 // Rotation de l'indicateur pour viser
                 float rotation = Input.GetKey(KeyCode.RightArrow) ? vitesseRotation : -vitesseRotation;
                 pointeur.transform.RotateAround(transform.position, Vector3.up, rotation * Time.deltaTime);
-                AjusterPositionIndicateur();
+                AjusterPositionPointeur();
             }
 
         }
         else
         {
+            
             pointeur.SetActive(false); // Cache le pointeur lorsque la balle est en mouvement
         }
 
         // Frapper la balle
         if (Input.GetKeyDown(KeyCode.Space) && rb.velocity.magnitude < seuilVitesse) // Assure que la balle est immobile avant de tirer
         {
+            Camera.main.GetComponent<CameraJeu>().activerOveriew();
             Vector3 direction = pointeur.transform.position - transform.position;
             rb.AddForce(direction.normalized * puissanceTir, ForceMode.VelocityChange);
         }
@@ -57,7 +59,7 @@ public class ControleBalle : MonoBehaviour
             rb.angularVelocity = Vector3.zero; // Arrête également toute rotation de la balle
         }
     }
-    void AjusterPositionIndicateur()
+    void AjusterPositionPointeur()
     {
         // Ajuste la position de l'indicateur pour qu'il soit toujours à une distance fixe devant la balle
         Vector3 direction = (pointeur.transform.position - transform.position).normalized;
