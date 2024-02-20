@@ -11,12 +11,17 @@ public class animationTitre : MonoBehaviour
 
     void Start()
     {
+        //le texte est complètement transparent au début
         textElement.color = new Color(textElement.color.r, textElement.color.g, textElement.color.b, 0);
-        StartCoroutine(FadeTextToFullAlpha(dure, textElement));
+        StartCoroutine(AnimerTexte(dure, textElement));
         
     }
-
-    public IEnumerator FadeTextToFullAlpha(float t, TextMeshProUGUI i)
+    /// <summary>
+    /// Coroutine pour l'animation du texte
+    /// </summary>
+    /// <param name="t">dure</param>
+    /// <param name="i">texte</param>
+    public IEnumerator AnimerTexte(float t, TextMeshProUGUI i)
     {
         while (i.color.a < 1.0f)
         {
@@ -29,10 +34,11 @@ public class animationTitre : MonoBehaviour
 
     void Update()
     {
-        // Skip the animation if any key is pressed or the mouse is clicked
+       //arreter l'annimation si on appuie sur un bouton
         if (Input.anyKeyDown || Input.GetMouseButtonDown(0))
         {
-            StopAllCoroutines(); // Stop the fading coroutine
+            StopAllCoroutines(); 
+            //le texte devient transparent directement
             textElement.color = new Color(textElement.color.r, textElement.color.g, textElement.color.b, 0);
             Camera.main.GetComponent<CameraJeu>().ActiverScriptCamera(true);                                                                                                 // Find the camera follow script and enable it
 
