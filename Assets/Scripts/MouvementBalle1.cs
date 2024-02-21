@@ -8,7 +8,7 @@ public class ControleBalle1 : MonoBehaviour
     private Rigidbody rb;
     private float seuilVitesse = 2f;
     public float distancePointeur = 2f;
-
+ 
 
     void Start()
     {
@@ -43,25 +43,39 @@ public class ControleBalle1 : MonoBehaviour
           
         }
 
+        
         // Frapper la balle
         if (Input.GetKeyDown(KeyCode.Space) && rb.velocity.magnitude < seuilVitesse)
         {
             rb.AddForce(transform.forward * puissanceTir, ForceMode.VelocityChange);
-            Camera.main.GetComponent<CameraJeu>().ActiverScriptCamera(true);
-           // rb.rotation = Quaternion.identity;
+            
+           // Camera.main.GetComponent<CameraJeu>().ActiverScriptCamera(true);
+            // rb.rotation = Quaternion.identity;
+
+            // Vérifiez si la vitesse de la balle est inférieure au seuil
+            if (rb.velocity.magnitude < seuilVitesse && rb.velocity.magnitude > 0)
+            {
+                arreterBalle();
+
+            }
         }
     }
 
     void FixedUpdate()
     {
-        // Vérifiez si la vitesse de la balle est inférieure au seuil
         if (rb.velocity.magnitude < seuilVitesse && rb.velocity.magnitude > 0)
         {
-            rb.velocity = Vector3.zero; // Arrête complètement la balle
-            rb.angularVelocity = Vector3.zero; // Arrête également toute rotation de la balle
-           // rb.rotation = Quaternion.identity;
 
+            arreterBalle();
         }
+
+    }
+    private void arreterBalle()
+    {
+        rb.velocity = Vector3.zero; // Arrête complètement la balle
+        rb.angularVelocity = Vector3.zero; // Arrête également toute rotation de la balle
+        float rotationY = rb.transform.eulerAngles.y;
+        rb.transform.eulerAngles = new Vector3(0, rotationY, 0);
     }
 
 

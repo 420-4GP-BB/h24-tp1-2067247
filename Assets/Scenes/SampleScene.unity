@@ -1757,7 +1757,6 @@ GameObject:
   m_Component:
   - component: {fileID: 993075681}
   - component: {fileID: 993075680}
-  - component: {fileID: 993075679}
   m_Layer: 0
   m_Name: CameraOverP1
   m_TagString: Untagged
@@ -1765,14 +1764,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &993075679
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 993075678}
-  m_Enabled: 1
 --- !u!20 &993075680
 Camera:
   m_ObjectHideFlags: 0
@@ -2727,7 +2718,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointeur: {fileID: 1104740853}
-  distancePointeur: 7
+  distancePointeur: 5
 --- !u!1 &1547017132
 GameObject:
   m_ObjectHideFlags: 0
@@ -3356,6 +3347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 784425424c7c44e4683a4715e61ed6f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointeur: {fileID: 1104740853}
   textElement: {fileID: 1718954687}
   dure: 3
 --- !u!1001 &1784315568

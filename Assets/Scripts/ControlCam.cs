@@ -7,11 +7,13 @@ public class ControlCam : MonoBehaviour
     public Camera mainCamera; // Référence à la caméra principale
     public Camera movementCamera; // Référence à la caméra de mouvement
     public Rigidbody ball;
+   
     // Start is called before the first frame update
     void Start()
     {
-        mainCamera.enabled = true;
         movementCamera.enabled = false;
+        mainCamera.enabled = true;
+        
     }
 
     // Update is called once per frame
@@ -29,6 +31,7 @@ public class ControlCam : MonoBehaviour
             // La balle est immobile, activez la caméra principale
             mainCamera.enabled = true;
             movementCamera.enabled = false;
+           
         }
 
     }
