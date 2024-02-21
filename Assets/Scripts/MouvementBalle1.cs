@@ -12,6 +12,7 @@ public class ControleBalle1 : MonoBehaviour
 
     void Start()
     {
+        pointeur.SetActive(false);
         rb = GetComponent<Rigidbody>();
        
        
@@ -23,21 +24,23 @@ public class ControleBalle1 : MonoBehaviour
         // Active le pointeur seulement si la balle est immobile
         if (rb.velocity.magnitude < seuilVitesse)
         {
-            pointeur.SetActive(true);
-            // Ajuster la position du pointeur pour qu'il suive la rotation de la balle
-            pointeur.transform.position = transform.position + transform.forward * distancePointeur;
+            
 
             if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow))
             {
                 // Rotation de l'indicateur pour viser
                 float rotation = Input.GetKey(KeyCode.RightArrow) ? vitesseRotation : -vitesseRotation;
                 rb.transform.Rotate(Vector3.up, rotation * Time.deltaTime);
+
+                pointeur.SetActive(true);
+                // Ajuster la position du pointeur pour qu'il suive la rotation de la balle
+                pointeur.transform.position = transform.position + transform.forward * distancePointeur;
             }
         }
         else
         {
             pointeur.SetActive(false); // Cache le pointeur lorsque la balle est en mouvement
-            Camera.main.GetComponent<CameraJeu>().activerOveriew();
+          
         }
 
         // Frapper la balle
@@ -45,7 +48,7 @@ public class ControleBalle1 : MonoBehaviour
         {
             rb.AddForce(transform.forward * puissanceTir, ForceMode.VelocityChange);
             Camera.main.GetComponent<CameraJeu>().ActiverScriptCamera(true);
-            rb.rotation = Quaternion.identity;
+           // rb.rotation = Quaternion.identity;
         }
     }
 
@@ -56,7 +59,7 @@ public class ControleBalle1 : MonoBehaviour
         {
             rb.velocity = Vector3.zero; // Arrête complètement la balle
             rb.angularVelocity = Vector3.zero; // Arrête également toute rotation de la balle
-           
+           // rb.rotation = Quaternion.identity;
 
         }
     }

@@ -38,7 +38,7 @@ public class ControleBalle : MonoBehaviour
         }
         else
         {
-            Camera.main.GetComponent<CameraJeu>().activerOveriew();
+           // Camera.main.GetComponent<CameraJeu>().activerOveriew();
             pointeur.SetActive(false); // Cache le pointeur lorsque la balle est en mouvement
            
         }

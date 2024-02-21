@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class animationTitre : MonoBehaviour
 {
-
+    public GameObject pointeur;
     public TextMeshProUGUI textElement; 
     public float dure = 3.0f;
 
     void Start()
     {
+        pointeur.SetActive(false);
         //le texte est complètement transparent au début
         textElement.color = new Color(textElement.color.r, textElement.color.g, textElement.color.b, 0);
         StartCoroutine(AnimerTexte(dure, textElement));
