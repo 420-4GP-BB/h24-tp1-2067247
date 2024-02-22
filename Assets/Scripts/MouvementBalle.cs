@@ -6,12 +6,13 @@ public class MouvementBalle : MonoBehaviour
     [SerializeField] private GameObject pointeur; // Assignez la balle indicateur dans l'inspecteur
     [SerializeField] private GameObject barreForce;
     private float puissanceTir; // Ajustez selon le besoin
+    private float puissanceTir1; 
     [SerializeField] private float vitesseRotation = 20f; // Ajustez selon le besoin
     private Rigidbody rb;
     private float seuilVitesse = 2f;
     [SerializeField] public float distancePointeur = 2f;
-    private float tailleMin = 2;
-    private float tailleMax = 12f;
+    private float tailleMin = 0.2f;
+    private float tailleMax = 1.2f;
     private float dure = 2f;
 
 
@@ -42,13 +43,15 @@ public class MouvementBalle : MonoBehaviour
             rb.transform.Rotate(Vector3.up, rotation * Time.deltaTime);
 
         }
-
+        Debug.Log(puissanceTir1);
 
         // Frapper la balle
         if (Input.GetKeyDown(KeyCode.Space) && rb.velocity.magnitude < seuilVitesse)
         {
-            rb.AddForce(transform.forward * puissanceTir, ForceMode.VelocityChange);
-
+            
+            
+            rb.AddForce(transform.forward * puissanceTir1, ForceMode.VelocityChange);
+           
         }
         arreterBalle();
     }
@@ -69,11 +72,13 @@ public class MouvementBalle : MonoBehaviour
     {
         while (true) // Infinite loop to continuously change Y scale
         {
+           
             // Scale Y up
             yield return StartCoroutine(varier(tailleMin, tailleMax, dure));
-
+            
             // Scale Y down
             yield return StartCoroutine(varier(tailleMax, tailleMin, dure));
+           
         }
     }
 
@@ -81,19 +86,32 @@ public class MouvementBalle : MonoBehaviour
     {
         float tempsEcoule = 0f;
         Vector3 tailleDebut = barreForce.transform.localScale;
+        float nouvelleTaille=12;
+        puissanceTir = valDebut * 100/2;
         while (tempsEcoule < dure)
         {
             tempsEcoule += Time.deltaTime;
             float t = tempsEcoule / dure;
-            // 
-            float nouvelleTaille = Mathf.Lerp(valDebut / 10, valFin / 10, t);
+           
+
+            nouvelleTaille = Mathf.Lerp(valDebut , valFin , t);
             barreForce.transform.localScale = new Vector3(tailleDebut.x, nouvelleTaille, tailleDebut.z); // Apply the new scale, keeping X and Z constant
-            puissanceTir = nouvelleTaille;
-            yield return null;  
+            puissanceTir = ConvertirVersPuissance(nouvelleTaille, tailleMin, tailleMax, 0, 12);
+            puissanceTir1 = puissanceTir;
+          //  Debug.Log($"INLoop :Échelle Actuelle: {nouvelleTaille}, PuissanceTir: {puissanceTir}, puissanceReeale: {puissanceTir1}");
+
+            yield return null;
         }
-        barreForce.transform.localScale = new Vector3(tailleDebut.x, valFin, tailleDebut.z);
         
+
+
     }
+    private float ConvertirVersPuissance(float echelleActuelle, float echelleMin, float echelleMax, float puissanceMin, float puissanceMax)
+    {
+        float valeurNormalisee = (echelleActuelle - echelleMin) / (echelleMax - echelleMin);
+        return Mathf.Lerp(puissanceMin, puissanceMax, valeurNormalisee);
+    }
+
     public void activerModeTir()
     {
         barreForce.SetActive(true);
