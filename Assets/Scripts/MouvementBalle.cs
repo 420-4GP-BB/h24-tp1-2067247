@@ -10,70 +10,49 @@ public class MouvementBalle : MonoBehaviour
     private Rigidbody rb;
     private float seuilVitesse = 2f;
     [SerializeField] public float distancePointeur = 2f;
-    private float tailleMin =2;
-    private float tailleMax=12f;
+    private float tailleMin = 2;
+    private float tailleMax = 12f;
     private float dure = 2f;
-    
-    
-    
+
+
+
 
     void Start()
     {
 
-        
+
         barreForce.SetActive(false);
         pointeur.SetActive(false);
         rb = GetComponent<Rigidbody>();
-       
-       
+
+
 
     }
 
     void Update()
     {
-        
-        // Active le pointeur seulement si la balle est immobile
-        if (rb.velocity.magnitude < seuilVitesse)
-        {
-            
+        // Rotation de la balle pour viser
 
-            if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow))
-            {
-                activerModeTir();
-               
-                // Rotation de l'indicateur pour viser
-                float rotation = Input.GetKey(KeyCode.RightArrow) ? vitesseRotation : -vitesseRotation;
-                rb.transform.Rotate(Vector3.up, rotation * Time.deltaTime);
-
-                
-                // Ajuster la position du pointeur pour qu'il suive la rotation de la balle
-                pointeur.transform.position = transform.position + transform.forward * distancePointeur;
-            }
-        }
-        else
+        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow))
         {
-            desactiverModeTir();
+
+
+
+            float rotation = Input.GetKey(KeyCode.RightArrow) ? vitesseRotation : -vitesseRotation;
+            rb.transform.Rotate(Vector3.up, rotation * Time.deltaTime);
+
         }
 
-        
+
         // Frapper la balle
         if (Input.GetKeyDown(KeyCode.Space) && rb.velocity.magnitude < seuilVitesse)
         {
             rb.AddForce(transform.forward * puissanceTir, ForceMode.VelocityChange);
-            
-            // Vérifiez si la vitesse de la balle est inférieure au seuil
-            
-                arreterBalle();
 
-            
         }
-    }
-
-    void FixedUpdate()
-    {
         arreterBalle();
-
     }
+
     private void arreterBalle()
     {
         if (rb.velocity.magnitude < seuilVitesse && rb.velocity.magnitude > 0)
@@ -84,8 +63,6 @@ public class MouvementBalle : MonoBehaviour
             float rotationY = rb.transform.eulerAngles.y;
             rb.transform.eulerAngles = new Vector3(0, rotationY, 0);
         }
-
-        
     }
 
     private IEnumerator VarierEnBoucle()
@@ -109,22 +86,22 @@ public class MouvementBalle : MonoBehaviour
             tempsEcoule += Time.deltaTime;
             float t = tempsEcoule / dure;
             // 
-            float nouvelleTaille = Mathf.Lerp(valDebut/10, valFin/10, t);
+            float nouvelleTaille = Mathf.Lerp(valDebut / 10, valFin / 10, t);
             barreForce.transform.localScale = new Vector3(tailleDebut.x, nouvelleTaille, tailleDebut.z); // Apply the new scale, keeping X and Z constant
-            puissanceTir = Mathf.Lerp(2f, 20f, t);
-            yield return null; // 
+            puissanceTir = nouvelleTaille;
+            yield return null;  
         }
         barreForce.transform.localScale = new Vector3(tailleDebut.x, valFin, tailleDebut.z);
-        puissanceTir = (valFin == tailleMax) ? 20f : 2f;
+        
     }
-    private void activerModeTir()
+    public void activerModeTir()
     {
         barreForce.SetActive(true);
         pointeur.SetActive(true);
         StartCoroutine(VarierEnBoucle());
 
     }
-    private void desactiverModeTir()
+    public void desactiverModeTir()
     {
         barreForce.SetActive(false);
         pointeur.SetActive(false);

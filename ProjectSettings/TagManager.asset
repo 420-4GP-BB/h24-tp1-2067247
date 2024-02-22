@@ -8,6 +8,7 @@ TagManager:
   - CameraPiste1
   - pointeur
   - barreForce
+  - BalleJoueur
   layers:
   - Default
   - TransparentFX
