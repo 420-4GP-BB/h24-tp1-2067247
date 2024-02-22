@@ -8,9 +8,11 @@ public class animationTitre : MonoBehaviour
     public GameObject pointeur;
     public TextMeshProUGUI textElement; 
     public float dure = 3.0f;
+    private static bool animation =false;
 
     void Start()
     {
+        
         pointeur.SetActive(false);
         //le texte est complètement transparent au début
         textElement.color = new Color(textElement.color.r, textElement.color.g, textElement.color.b, 0);
@@ -30,7 +32,7 @@ public class animationTitre : MonoBehaviour
             yield return null;
         }
         textElement.color = new Color(textElement.color.r, textElement.color.g, textElement.color.b, 0);
-        Camera.main.GetComponent<CameraJeu>().ActiverScriptCamera(true);
+        animation = true;
     }
 
     void Update()
@@ -41,9 +43,13 @@ public class animationTitre : MonoBehaviour
             StopAllCoroutines(); 
             //le texte devient transparent directement
             textElement.color = new Color(textElement.color.r, textElement.color.g, textElement.color.b, 0);
-            Camera.main.GetComponent<CameraJeu>().ActiverScriptCamera(true);                                                                                                 // Find the camera follow script and enable it
-
+                                                                                                           // Find the camera follow script and enable it
+            animation = true;
         }
         
+    }
+    public static bool getAnimation()
+    {
+        return animation;
     }
 }
