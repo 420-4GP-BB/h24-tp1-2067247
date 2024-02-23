@@ -1,19 +1,18 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class MouvementBalle : MonoBehaviour
 {
     [SerializeField] private GameObject pointeur; // Assignez la balle indicateur dans l'inspecteur
     [SerializeField] private GameObject barreForce;
     private float puissanceTir; // Ajustez selon le besoin
-    private float puissanceTir1; 
-    [SerializeField] private float vitesseRotation = 20f; // Ajustez selon le besoin
+    [SerializeField] private float vitesseRotation = 25f; // Ajustez selon le besoin
     private Rigidbody rb;
     private float seuilVitesse = 2f;
     [SerializeField] public float distancePointeur = 2f;
-    private float tailleMin = 0.2f;
-    private float tailleMax = 1.2f;
-    private float dure = 2f;
+    private bool _agrandissementActif;
+    private Vector3 _vecteurCroissance = new Vector3(0f, 0.005f, 0f);
 
 
 
@@ -37,21 +36,18 @@ public class MouvementBalle : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow))
         {
 
-
-
             float rotation = Input.GetKey(KeyCode.RightArrow) ? vitesseRotation : -vitesseRotation;
             rb.transform.Rotate(Vector3.up, rotation * Time.deltaTime);
 
         }
-        Debug.Log(puissanceTir1);
+        Debug.Log(puissanceTir);
 
         // Frapper la balle
         if (Input.GetKeyDown(KeyCode.Space) && rb.velocity.magnitude < seuilVitesse)
         {
-            
-            
-            rb.AddForce(transform.forward * puissanceTir1, ForceMode.VelocityChange);
-           
+
+            rb.AddForce(transform.forward * puissanceTir, ForceMode.VelocityChange);
+
         }
         arreterBalle();
     }
@@ -68,62 +64,55 @@ public class MouvementBalle : MonoBehaviour
         }
     }
 
-    private IEnumerator VarierEnBoucle()
+
+
+    private void varier()
     {
-        while (true) // Infinite loop to continuously change Y scale
+        float scaleY = barreForce.transform.localScale.y;
+
+        if (_agrandissementActif)
         {
-           
-            // Scale Y up
-            yield return StartCoroutine(varier(tailleMin, tailleMax, dure));
-            
-            // Scale Y down
-            yield return StartCoroutine(varier(tailleMax, tailleMin, dure));
-           
-        }
-    }
 
-    private IEnumerator varier(float valDebut, float valFin, float dure)
-    {
-        float tempsEcoule = 0f;
-        Vector3 tailleDebut = barreForce.transform.localScale;
-        float nouvelleTaille=12;
-        puissanceTir = valDebut * 100/2;
-        while (tempsEcoule < dure)
+            scaleY += _vecteurCroissance.y;
+        }
+        else
         {
-            tempsEcoule += Time.deltaTime;
-            float t = tempsEcoule / dure;
-           
-
-            nouvelleTaille = Mathf.Lerp(valDebut , valFin , t);
-            barreForce.transform.localScale = new Vector3(tailleDebut.x, nouvelleTaille, tailleDebut.z); // Apply the new scale, keeping X and Z constant
-            puissanceTir = ConvertirVersPuissance(nouvelleTaille, tailleMin, tailleMax, 0, 12);
-            puissanceTir1 = puissanceTir;
-          //  Debug.Log($"INLoop :Échelle Actuelle: {nouvelleTaille}, PuissanceTir: {puissanceTir}, puissanceReeale: {puissanceTir1}");
-
-            yield return null;
+            scaleY -= _vecteurCroissance.y;
         }
-        
+        barreForce.transform.localScale = new Vector3(0.2f, scaleY, 0.2f);
+        puissanceTir = scaleY * 10;
+        // On regarde s'il faut agrandir ou diminuer la taille pour la prochain it�ration
+
+        if (barreForce.transform.localScale.y >= 1.5f)
+        {
+            _agrandissementActif = false;
+        }
+
+        if (barreForce.transform.localScale.y <= 0.1f)
+        {
+            _agrandissementActif = true;
+        }
+
 
 
     }
-    private float ConvertirVersPuissance(float echelleActuelle, float echelleMin, float echelleMax, float puissanceMin, float puissanceMax)
-    {
-        float valeurNormalisee = (echelleActuelle - echelleMin) / (echelleMax - echelleMin);
-        return Mathf.Lerp(puissanceMin, puissanceMax, valeurNormalisee);
-    }
+
 
     public void activerModeTir()
     {
+
+        varier();
+
         barreForce.SetActive(true);
         pointeur.SetActive(true);
-        StartCoroutine(VarierEnBoucle());
+
 
     }
     public void desactiverModeTir()
     {
         barreForce.SetActive(false);
         pointeur.SetActive(false);
-        StopCoroutine(VarierEnBoucle());
+
     }
 
 }
