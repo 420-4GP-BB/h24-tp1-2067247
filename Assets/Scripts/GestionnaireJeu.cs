@@ -32,14 +32,14 @@ public class GestionnaireJeu : MonoBehaviour
         arreterBalle();
 
         //Replacer à la prochaine piste
-        if (sender == trou1) { 
-        balle.transform.position = new Vector3(-4.14f, 0.27f, -5.4f);
-        mouvementCamera.transform.position = new Vector3(0.03f, 16.11f, -0.25f);
+        if (sender == trou1) {
+            balle.transform.position = new Vector3(-4.14f, 0.27f, -5.4f);
+            mouvementCamera.transform.position = new Vector3(0.03f, 16.11f, -0.25f);
         }
         else if (sender == trou2)
         {
-            balle.transform.position = new Vector3(-4.14f, 0.27f, -5.4f);
-            mouvementCamera.transform.position = new Vector3(0.03f, 16.11f, -0.25f);
+            balle.transform.position = new Vector3(17.9f, -1.13f, 6.4f);
+            mouvementCamera.transform.position = new Vector3(18f, 14.68f, 0.69f);
         }
 
     }

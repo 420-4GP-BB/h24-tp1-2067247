@@ -370,6 +370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   balle: {fileID: 1538783688}
   trou1: {fileID: 399222275}
+  trou2: {fileID: 0}
   mouvementCamera: {fileID: 993075680}
 --- !u!4 &124609512
 Transform:
@@ -1886,6 +1887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2cd6a6af40424f5d956d8821453c2a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  balleActive: {fileID: 1538783688}
 --- !u!1 &952529425
 GameObject:
   m_ObjectHideFlags: 0

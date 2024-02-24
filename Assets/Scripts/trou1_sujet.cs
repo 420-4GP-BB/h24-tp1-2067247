@@ -5,19 +5,17 @@ using UnityEngine;
 
 public class trou1_sujet : MonoBehaviour
 {
-    public event Action ZoneAtteinteHandler;
-    [SerializeField] private GameObject balleActive; // variable pour la balle active
-    // Start is called before the first frame update
    
+    public event Action<object, EventArgs> ZoneAtteinteHandler;
+    [SerializeField] private GameObject balleActive; 
+
+   
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == balleActive)
         {
-            // Si la zone n'est pas observée, il ne faut pas déclencher l'événement
-            if (ZoneAtteinteHandler != null)
-            {
-                ZoneAtteinteHandler();
-            }
+            ZoneAtteinteHandler?.Invoke(this, EventArgs.Empty);
         }
     }
 
