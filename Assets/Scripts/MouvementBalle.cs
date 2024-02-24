@@ -80,7 +80,7 @@ public class MouvementBalle : MonoBehaviour
             scaleY -= _vecteurCroissance.y;
         }
         barreForce.transform.localScale = new Vector3(0.2f, scaleY, 0.2f);
-        puissanceTir = scaleY * 15;
+        puissanceTir = scaleY * 20;
         // On regarde s'il faut agrandir ou diminuer la taille pour la prochain it�ration
 
         if (barreForce.transform.localScale.y >= 1.5f)
