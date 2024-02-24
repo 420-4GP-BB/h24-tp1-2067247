@@ -5,10 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - CameraChildBalle
-  - CameraPiste1
   - pointeur
   - barreForce
   - BalleJoueur
+  - CameraPiste
   layers:
   - Default
   - TransparentFX

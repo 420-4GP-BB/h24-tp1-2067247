@@ -7,7 +7,7 @@ public class MouvementBalle : MonoBehaviour
     [SerializeField] private GameObject pointeur; // Assignez la balle indicateur dans l'inspecteur
     [SerializeField] private GameObject barreForce;
     private float puissanceTir; // Ajustez selon le besoin
-    [SerializeField] private float vitesseRotation = 25f; // Ajustez selon le besoin
+    [SerializeField] private float vitesseRotation = 50f; // Ajustez selon le besoin
     private Rigidbody rb;
     private float seuilVitesse = 2f;
     [SerializeField] public float distancePointeur = 2f;
@@ -80,7 +80,7 @@ public class MouvementBalle : MonoBehaviour
             scaleY -= _vecteurCroissance.y;
         }
         barreForce.transform.localScale = new Vector3(0.2f, scaleY, 0.2f);
-        puissanceTir = scaleY * 10;
+        puissanceTir = scaleY * 15;
         // On regarde s'il faut agrandir ou diminuer la taille pour la prochain it�ration
 
         if (barreForce.transform.localScale.y >= 1.5f)
