@@ -11,8 +11,11 @@ public class ControlCam : MonoBehaviour
     private GameObject balle;
     private Rigidbody balle_rb;
     private MouvementBalle mouvementBalleScript;
-    private GestionnaireJeu gestionnaireJeu;
-    // [SerializeField] private  GameObject pointeur;
+    public float moveSpeed = 5f; // Vitesse de déplacement de la caméra
+
+    // Vecteurs de déplacement pour chaque direction
+    private Vector3 upVector = new Vector3(1, 0, 1); // Par exemple, pour le mouvement vers le haut
+    private Vector3 downVector = new Vector3(-1, 0, -1); // Pour le mouvement vers le bas
     private GameObject pointeur;
 
     // Start is called before the first frame update
@@ -25,6 +28,7 @@ public class ControlCam : MonoBehaviour
         pointeur = GameObject.FindWithTag("pointeur");
         balle_rb = balle.GetComponent<Rigidbody>();
         mouvementBalleScript = GameObject.FindObjectOfType<MouvementBalle>();
+
 
         pointeur.SetActive(false);
         mainCamera.enabled = true;
@@ -59,7 +63,22 @@ public class ControlCam : MonoBehaviour
                 AnimationTitre();
                 mouvementBalleScript.desactiverModeTir();
             }
-        
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            MoveCamera(upVector);
+        }
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            MoveCamera(downVector);
+        }
+
+
+
+    }
+    void MoveCamera(Vector3 direction)
+    {
+        // Déplace la caméra dans la direction spécifiée
+        camBalle.transform.localPosition += direction.normalized * moveSpeed * Time.deltaTime;
     }
 
     private void SuivreBalle()

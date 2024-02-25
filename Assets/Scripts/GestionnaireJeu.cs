@@ -38,7 +38,7 @@ public class GestionnaireJeu : MonoBehaviour
         }
         else if (sender == trou2)
         {
-            balle.transform.position = new Vector3(17.9f, -1.13f, 6.4f);
+            balle.transform.position = new Vector3(18.2f, 0.27f, -6.08f);
             mouvementCamera.transform.position = new Vector3(18f, 14.68f, 0.69f);
         }
 

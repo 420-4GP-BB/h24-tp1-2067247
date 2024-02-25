@@ -40,7 +40,7 @@ public class MouvementBalle : MonoBehaviour
             rb.transform.Rotate(Vector3.up, rotation * Time.deltaTime);
 
         }
-        Debug.Log(puissanceTir);
+        
 
         // Frapper la balle
         if (Input.GetKeyDown(KeyCode.Space) && rb.velocity.magnitude < seuilVitesse)

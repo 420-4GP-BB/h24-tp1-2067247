@@ -324,6 +324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f8c01e42ab7a44f8ad86bfb5109eef6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 5
 --- !u!4 &98158687
 Transform:
   m_ObjectHideFlags: 0
@@ -370,7 +371,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   balle: {fileID: 1538783688}
   trou1: {fileID: 399222275}
-  trou2: {fileID: 0}
+  trou2: {fileID: 929118788}
   mouvementCamera: {fileID: 993075680}
 --- !u!4 &124609512
 Transform:
@@ -584,7 +585,7 @@ Transform:
   m_GameObject: {fileID: 219240103}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.70712733, z: -0, w: 0.70708627}
-  m_LocalPosition: {x: 1.11, y: 0, z: 0.16}
+  m_LocalPosition: {x: 1.11, y: 1.88, z: 0.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1821,10 +1822,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
+  m_Radius: 0.5052411
+  m_Height: 59.40521
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: 0.005241215, y: 0, z: -0.0000001192091}
 --- !u!23 &929118786
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4137,6 +4138,7 @@ GameObject:
   - component: {fileID: 2012427184}
   - component: {fileID: 2012427183}
   - component: {fileID: 2012427182}
+  - component: {fileID: 2012427185}
   m_Layer: 0
   m_Name: MiniBloc
   m_TagString: Untagged
@@ -4230,6 +4232,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2012427180}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2012427185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2012427180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c0a3e071f3ee45e383f96875ce0d610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bloc1: {fileID: 2012427180}
+  bloc2: {fileID: 1660064696}
+  amplitude: 5
+  vitesse: 2
 --- !u!4 &5561836664813423854 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1514542017443018614, guid: d2e2f1f4c1a48428a85bdf50a7b679fb, type: 3}
