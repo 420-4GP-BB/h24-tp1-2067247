@@ -7,9 +7,12 @@ public class trou1_sujet : MonoBehaviour
 {
    
     public event Action<object, EventArgs> ZoneAtteinteHandler;
-    [SerializeField] private GameObject balleActive; 
+    [SerializeField] private GameObject balleActive;
 
-   
+    /// <summary>
+    /// methode pour allerter l'observateur
+    /// </summary>
+    /// <param name="other">objet qui rentre en contact avec la zone</param>
 
     private void OnTriggerEnter(Collider other)
     {
