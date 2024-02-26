@@ -16,17 +16,26 @@ public class GestionnaireJeu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        message.gameObject.SetActive(false);
         mouvementBalle = balle.GetComponent<MouvementBalle>();
         trou1.ZoneAtteinteHandler += replacerBalle;
         trou2.ZoneAtteinteHandler += replacerBalle;
 
     }
+    private void Update()
+    {
+        if  (mouvementBalle.getNbCoups() == 6)
+        {
+            balle.transform.position = new Vector3(-4.14f, 0.27f, -5.4f);
+            mouvementCamera.transform.position = new Vector3(0.03f, 16.11f, -0.25f);
+        }
+    }
 
-   /// <summary>
-   /// methode pour replacer la balle après avoir heurter un trou
-   /// </summary>
-   /// <param name="sender">le sujet qui a été triggered</param>
-   /// <param name="e"></param>
+    /// <summary>
+    /// methode pour replacer la balle après avoir heurter un trou
+    /// </summary>
+    /// <param name="sender">le sujet qui a été triggered</param>
+    /// <param name="e"></param>
     public void replacerBalle(object sender, EventArgs e)
     {
        arreterBalle();
@@ -36,15 +45,17 @@ public class GestionnaireJeu : MonoBehaviour
            
             balle.transform.position = new Vector3(-4.14f, 0.27f, -5.4f);
             mouvementCamera.transform.position = new Vector3(0.03f, 16.11f, -0.25f);
-            if (mouvementBalle.getNbCoups() == 1)
-            {
-                StartCoroutine(AffichageMessage("Trou d'un coup"));
-            }
+          
         }
         else if (sender == trou2)
         {
             balle.transform.position = new Vector3(18.2f, 0.27f, -6.08f);
             mouvementCamera.transform.position = new Vector3(18f, 14.68f, 0.69f);
+        }
+
+        if (mouvementBalle.getNbCoups() == 1)
+        {
+            StartCoroutine(AffichageMessage("TROU D'UN COUP !!!"));
         }
 
     }
@@ -75,7 +86,7 @@ public class GestionnaireJeu : MonoBehaviour
         message.text = texte;
         // activer le message
         message.gameObject.SetActive(true);
-
+        Debug.Log("Yaaaaaay");
         // afficher pour2 secondes
         yield return new WaitForSeconds(2);
 

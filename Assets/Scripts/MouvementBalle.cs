@@ -51,7 +51,7 @@ public class MouvementBalle : MonoBehaviour
 
             rb.AddForce(transform.forward * puissanceTir, ForceMode.VelocityChange);
             nbCoups += 1;
-            Debug.Log(nbCoups);
+            
         }
         arreterBalle();
     }

@@ -62,6 +62,7 @@ public class ControlCam : MonoBehaviour
             if (Input.GetKey(KeyCode.UpArrow))
             {
                 MoveCamera(upVector);
+                
             }
             if (Input.GetKey(KeyCode.DownArrow))
             {
