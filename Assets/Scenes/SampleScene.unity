@@ -378,6 +378,7 @@ MonoBehaviour:
   mouvementCamera: {fileID: 993075680}
   pisteCoup: {fileID: 464288645}
   animationFin: {fileID: 326799534}
+  controlCam: {fileID: 98158686}
 --- !u!4 &124609512
 Transform:
   m_ObjectHideFlags: 0
@@ -4689,7 +4690,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bloc1: {fileID: 2012427180}
   bloc2: {fileID: 1660064696}
-  amplitude: 5
   vitesse: 2
 --- !u!4 &5561836664813423854 stripped
 Transform:

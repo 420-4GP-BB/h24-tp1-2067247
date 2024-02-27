@@ -6,7 +6,7 @@ using UnityEngine;
 public class AnimationFin : MonoBehaviour
 {
     [SerializeField] private TMP_Text texteScore; // Référence au composant texte qui affiche le score
-   [SerializeField] private GestionnaireJeu gestionnaireJeu;
+    [SerializeField] private GestionnaireJeu gestionnaireJeu;
     private int[] tableauScore;
     
     // Start is called before the first frame update
@@ -17,13 +17,7 @@ public class AnimationFin : MonoBehaviour
        
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-       
-        
-    }
-
+   
    
 
     // Méthode pour démarrer l'animation du score final
@@ -58,6 +52,7 @@ public class AnimationFin : MonoBehaviour
 
         // Afficher le score de la piste 3
         texteScore.text += $"  {tabScore[2]}";
+        //afichage du messaage de fin
         if (sommeScores > 9)
         {
             texteScore.text += "\nPas terrible";

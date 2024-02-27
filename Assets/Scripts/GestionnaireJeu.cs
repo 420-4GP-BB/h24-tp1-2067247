@@ -40,11 +40,14 @@ public class GestionnaireJeu : MonoBehaviour
     private void Update()
     {
         tabNbCoup[piste - 1] = mouvementBalle.getNbCoups();
+        //message pour afficher la piste et le coup
         pisteCoup.text = $"Piste : {piste} Coup : {tabNbCoup[piste - 1]}";
+        //penalité
         if (mouvementBalle.getNbCoups() == 6)
         {
             deplacerApresSix();
         }
+        //codes de triche
         if (Input.GetKey(KeyCode.Alpha1) || Input.GetKey(KeyCode.Keypad1))
         {
             deplacerDebutPiste1();
@@ -66,9 +69,11 @@ public class GestionnaireJeu : MonoBehaviour
         {
             deplacerPresTrou();
         }
-
+        
     }
-
+    /// <summary>
+    /// methode pour deplacer la balle a coté du trou avec le code triche
+    /// </summary>
     private void deplacerPresTrou()
     {
         // Angle aléatoire entre 0 et 2 * PI
@@ -143,8 +148,7 @@ public class GestionnaireJeu : MonoBehaviour
         {
             StartCoroutine(AffichageMessage("TROU D'UN COUP !!!"));
         }
-        
-        mouvementBalle.reinitiliserCoups();
+     
       
 
     }
@@ -156,15 +160,25 @@ public class GestionnaireJeu : MonoBehaviour
         if (piste == 1)
         {
             rb.transform.position = new Vector3(-22.5f, 0.27f, 4.77f);
+            StartCoroutine(AffichageMessage("Trop de coups! On passe à la prochaine piste..."));
+            tabNbCoup[piste - 1] += 1;
 
         }
-        if (piste == 2)
+       else if (piste == 2)
         {
             rb.transform.position = new Vector3(4.22f, 0.27f, -4.4f);
+            StartCoroutine(AffichageMessage("Trop de coups! On passe à la prochaine piste..."));
+            tabNbCoup[piste - 1] += 1;
 
         }
-        StartCoroutine(AffichageMessage("Trop de coups! On passe à la prochaine piste..."));
-        tabNbCoup[piste - 1] += 1;
+        else
+        {
+            animationFin.AfficherScoreFinal();
+
+            StartCoroutine(ReloadDelay());
+
+        }
+
     }
     
     /// <summary>
@@ -196,6 +210,9 @@ public class GestionnaireJeu : MonoBehaviour
         // desactiver message
         message.gameObject.SetActive(false);
     }
+    /// <summary>
+    /// methodes pour deplacer la balle au début de chaque piste en réinitialisant l'afficheur des coups
+    /// </summary>
     private void deplacerDebutPiste1()
     {
         arreterBalle();
@@ -221,15 +238,17 @@ public class GestionnaireJeu : MonoBehaviour
         piste = 3;
         mouvementBalle.reinitiliserCoups();
     }
+    //méthode pour récupérer les le tableau des score
     public int[] getTabScore()
     {
         return tabNbCoup;
     }
+    //méthode pour signaler la fin du jeu
     public bool getFin()
     {
         return fin ;
     }
-
+    //recommencer le jeu 
     IEnumerator ReloadDelay()
     {
 
