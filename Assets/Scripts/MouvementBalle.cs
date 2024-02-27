@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -8,6 +9,7 @@ public class MouvementBalle : MonoBehaviour
     [SerializeField] private GameObject barreForce;
     [SerializeField] public float distancePointeur = 2f;
     [SerializeField] private float vitesseRotation = 50f; // Ajustez selon le besoin
+    [SerializeField] private TMP_Text pisteCoup;
 
     private float puissanceTir; // Ajustez selon le besoin
     private Rigidbody rb;
@@ -15,6 +17,7 @@ public class MouvementBalle : MonoBehaviour
     private bool _agrandissementActif;// pour la barre de force
     private Vector3 _vecteurCroissance = new Vector3(0f, 0.005f, 0f);
     private int nbCoups=0;
+    private Vector3 dernierePos;
 
 
 
@@ -43,17 +46,35 @@ public class MouvementBalle : MonoBehaviour
             rb.transform.Rotate(Vector3.up, rotation * Time.deltaTime);
 
         }
-        
+
+
 
         // Frapper la balle
         if (Input.GetKeyDown(KeyCode.Space) && rb.velocity.magnitude < seuilVitesse)
         {
+            dernierePos = transform.position;
 
             rb.AddForce(transform.forward * puissanceTir, ForceMode.VelocityChange);
+
             nbCoups += 1;
-            
+
+
         }
         arreterBalle();
+
+    }
+    private void FixedUpdate()
+    {
+
+        if (transform.position.y < -1)
+        {
+            
+            transform.position = dernierePos;
+            rb.velocity = Vector3.zero; // Arrête complètement la balle
+            rb.angularVelocity = Vector3.zero; // Arrête également toute rotation de la balle
+            rb.rotation = Quaternion.identity;
+            nbCoups += 1;
+        }
     }
     /// <summary>
     /// methode pour arreter la balle quand elle atteint un certain seuil

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ public class ControlCam : MonoBehaviour
     private Rigidbody balle_rb;//rb de la balle
     private MouvementBalle mouvementBalleScript;//instance du script mouvement balle, pour controller l'apparition du pointeur et de la barre de force
     [SerializeField] private float moveSpeed = 5f; // Vitesse de déplacement de la caméra
-
+    [SerializeField] private TMP_Text pisteCoup;
     // Vecteurs de déplacement pour deplacer la camera
     private Vector3 upVector = new Vector3(1, 0, 1); //  pour le mouvement vers le haut
     private Vector3 downVector = new Vector3(-1, 0, -1); // Pour le mouvement vers le bas
@@ -29,6 +30,7 @@ public class ControlCam : MonoBehaviour
         pointeur = GameObject.FindWithTag("pointeur");
         balle_rb = balle.GetComponent<Rigidbody>();
         mouvementBalleScript = GameObject.FindObjectOfType<MouvementBalle>();
+        pisteCoup.gameObject.SetActive(false);
 
         //initialisation des cameras et cacher le pointeur et la barre de force
         pointeur.SetActive(false);
@@ -42,39 +44,40 @@ public class ControlCam : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
 
-            if (balle.transform.position.y < 0.2f)
-            {// la camera regrade d'en haut quand la balle tombe
-                OverviewPiste();
-            }
-            // Vérifiez si la balle est en mouvement
-            else if (balle_rb.velocity.magnitude > 0.1f && animationTitre.getAnimation()) // Utilisez un petit seuil pour déterminer "en mouvement"
-            {
-                OverviewPiste();
-            }
-            else if (animationTitre.getAnimation() && balle_rb.velocity.magnitude < 0.1f)
-            {
-                // si la balle est immobile,la caméra principale est activée
-                SuivreBalle();
-                mouvementBalleScript.activerModeTir();
+
+        if (balle.transform.position.y < 0.2f)
+        {// la camera regrade d'en haut quand la balle tombe
+            OverviewPiste();
+        }
+        // Vérifiez si la balle est en mouvement
+        else if (balle_rb.velocity.magnitude > 0.1f && animationTitre.getAnimation()) // Utilisez un petit seuil pour déterminer "en mouvement"
+        {
+            OverviewPiste();
+        }
+        else if (animationTitre.getAnimation() && balle_rb.velocity.magnitude < 0.1f)
+        {
+            pisteCoup.gameObject.SetActive(true);
+            // si la balle est immobile,la caméra principale est activée
+            SuivreBalle();
+            mouvementBalleScript.activerModeTir();
             //deplacer la camera avec la fleche vers le haut ou fleche vers le bas
             if (Input.GetKey(KeyCode.UpArrow))
             {
                 MoveCamera(upVector);
-                
+
             }
             if (Input.GetKey(KeyCode.DownArrow))
             {
                 MoveCamera(downVector);
             }
         }
-            else
-            {//activation de l'animation
-                AnimationTitre();
-                mouvementBalleScript.desactiverModeTir();
-            }
-       
+        else
+        {//activation de l'animation
+            AnimationTitre();
+            mouvementBalleScript.desactiverModeTir();
+        }
+
 
 
 

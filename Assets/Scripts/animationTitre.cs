@@ -7,7 +7,7 @@ public class animationTitre : MonoBehaviour
 {
    [SerializeField] private GameObject pointeur;
    [SerializeField] private TextMeshProUGUI textElement;
-   [SerializeField] private float dure = 3.0f;
+   private float dure = 2.0f;
    private static bool animation =false;
 
     void Start()
@@ -47,10 +47,15 @@ public class animationTitre : MonoBehaviour
             textElement.color = new Color(textElement.color.r, textElement.color.g, textElement.color.b, 0);                                                                    
             animation = true;
         }
+       
+        
     }
     //boolean pour controller les cameras
     public static bool getAnimation()
     {
         return animation;
     }
+
+   
+   
 }
