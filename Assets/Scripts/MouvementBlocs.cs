@@ -6,7 +6,6 @@ public class MouvementBlocs : MonoBehaviour
 {
     [SerializeField] private GameObject bloc1;
     [SerializeField] private GameObject bloc2;
-    [SerializeField] private float amplitude = 5f; // L'amplitude du mouvement (la distance maximale du mouvement de gauche à droite)
     [SerializeField] private float vitesse = 2f; // La vitesse du mouvement
     
 

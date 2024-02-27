@@ -377,6 +377,7 @@ MonoBehaviour:
   trou3: {fileID: 1045480906}
   mouvementCamera: {fileID: 993075680}
   pisteCoup: {fileID: 464288645}
+  animationFin: {fileID: 326799534}
 --- !u!4 &124609512
 Transform:
   m_ObjectHideFlags: 0
@@ -1010,6 +1011,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   texteScore: {fileID: 326799532}
+  gestionnaireJeu: {fileID: 124609511}
 --- !u!1 &399222270
 GameObject:
   m_ObjectHideFlags: 0

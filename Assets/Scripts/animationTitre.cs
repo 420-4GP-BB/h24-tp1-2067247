@@ -55,7 +55,11 @@ public class animationTitre : MonoBehaviour
     {
         return animation;
     }
+    public static void setAnimation(bool val)
+    {
+        animation = val;
+    }
 
-   
-   
+
+
 }

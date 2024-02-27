@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static UnityEngine.GraphicsBuffer;
 using Random = UnityEngine.Random;
 
@@ -15,7 +16,9 @@ public class GestionnaireJeu : MonoBehaviour
     [SerializeField] private trou3_sujet trou3; // la zone d'arrivée qu'on observe
     [SerializeField] private Camera mouvementCamera;
     [SerializeField] private TMP_Text pisteCoup;
-    private AnimationFin animationFin;
+    [SerializeField] private AnimationFin animationFin;
+    [SerializeField] private ControlCam controlCam;
+
     private int piste;
     private int[] tabNbCoup = { 0, 0, 0 };
     private MouvementBalle mouvementBalle;
@@ -127,11 +130,11 @@ public class GestionnaireJeu : MonoBehaviour
         }
         else if (sender == trou3)
         {
-            fin = true;
             
             animationFin.AfficherScoreFinal();
 
-            deplacerDebutPiste1();
+           StartCoroutine( ReloadDelay());
+      
         }
         if (piste == 1)
         {
@@ -225,6 +228,13 @@ public class GestionnaireJeu : MonoBehaviour
     public bool getFin()
     {
         return fin ;
+    }
+
+    IEnumerator ReloadDelay()
+    {
+
+        yield return new WaitForSeconds(4); 
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
     }
 }
 

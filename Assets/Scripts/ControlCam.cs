@@ -110,7 +110,7 @@ public class ControlCam : MonoBehaviour
     /// <summary>
     /// La camera du début est activée pour l'animation
     /// </summary>
-    private void AnimationTitre()
+    public void AnimationTitre()
     {
         mouvementCamera.enabled = false;
         mainCamera.enabled = true;
